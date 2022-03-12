@@ -24,20 +24,21 @@ export class TicketsListComponent implements OnInit, OnDestroy {
     private readonly _toaster: ToastrService
   ) {}
 
-  public _destroyAll$ = new ReplaySubject<unknown>(1);
+  public readonly _destroyAll$ = new ReplaySubject<unknown>(1);
 
   @ViewChild("drawer") public drawer: MatSidenav;
 
-  public tickets$: Observable<ITicket[]> = this._store.select(getShowProductCode);
+  public readonly tickets$: Observable<ITicket[]> =
+    this._store.select(getShowProductCode);
 
-  public toggleSide$: Observable<boolean> = this._store.select(toggleSide);
+  public readonly toggleSide$: Observable<boolean> = this._store.select(toggleSide);
 
   public ticketingForm: FormGroup = this._fb.group({});
 
   public drawerMode: "over" | "side" = "side";
 
   public ngOnInit(): void {
-    this.drawerMode = window.screen.width < 769 ? "over" : "side";
+    this.drawerMode = window.screen?.width < 769 ? "over" : "side";
     this.initForm();
     this.ticketingForm?.valueChanges
       .pipe(
@@ -64,7 +65,6 @@ export class TicketsListComponent implements OnInit, OnDestroy {
     this._store.dispatch(TicketActions.addTicketAction({ ticket }));
     this._toaster.success("Ticket added successfully 🕘");
     this.onResetForm();
-    if (this.drawerMode == "over") this.onToggleSide();
   }
 
   public onToggleSide(): void {
@@ -80,6 +80,7 @@ export class TicketsListComponent implements OnInit, OnDestroy {
     this.ticketingForm.reset();
     this.disabledControl("city");
     this.disabledControl("district");
+    if (this.drawerMode === "over") this.onToggleSide();
   }
 
   private changedField(): void {

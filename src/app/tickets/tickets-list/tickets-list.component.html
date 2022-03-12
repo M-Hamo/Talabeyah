@@ -2,19 +2,16 @@
   <mat-drawer
     #drawer
     [@animateStagger]="{ value: '50' }"
-    class="w-full sm:w-4/12 flex justify-start items-start py-10 sm:px-8 px-3 bg-slate-50"
     [mode]="drawerMode"
     [opened]="toggleSide$ | async"
     position="start"
+    class="w-full sm:w-4/12 flex justify-start items-start py-10 sm:px-8 px-3 bg-slate-50"
   >
     <h2 class="flex justify-start items-center text-xl font-semibold text-gray-600">
       <mat-icon class="mx-2">post_add</mat-icon>
       Ticket form
     </h2>
-    <form
-      [formGroup]="ticketingForm"
-      class="col-span-1 flex flex-col justify-start items-stretch"
-    >
+    <form [formGroup]="ticketingForm" class="flex flex-col justify-start items-stretch">
       <div
         [@animate]="{ value: '*', params: { y: '150px' } }"
         class="grid grid-cols-2 gap-2"
@@ -181,10 +178,10 @@
       <button
         *ngIf="!(toggleSide$ | async)"
         (click)="onToggleSide()"
-        class="bg-gray-200"
+        class="flex justify-center items-center bg-gray-200"
         mat-flat-button
       >
-        <mat-icon class="mx-2">view_compact_alt</mat-icon>
+        <mat-icon class="mx-1">alarm_add</mat-icon>
         Add Ticket
       </button>
     </div>
