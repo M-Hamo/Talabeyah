@@ -10,7 +10,10 @@ import * as TicketActions from "./tickets/state/ticketActions";
     <header
       class="h-16 flex justify-start items-center px-4 border-2 border-gray-200 text-gray-700"
     >
-      <button class="flex justify-center items-center" (click)="onToggleSideBar()">
+      <button
+        class="flex justify-center items-center outline-none"
+        (click)="onToggleSideBar()"
+      >
         <mat-icon>menu</mat-icon>
       </button>
 
@@ -20,7 +23,7 @@ import * as TicketActions from "./tickets/state/ticketActions";
   `,
 })
 export class AppComponent {
-  constructor(private _store: Store<State>) {}
+  constructor(private readonly _store: Store<State>) {}
 
   public onToggleSideBar(): void {
     this._store.dispatch(TicketActions.toggleSideBar());

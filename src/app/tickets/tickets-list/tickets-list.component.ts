@@ -19,9 +19,9 @@ import { MatSidenav } from "@angular/material/sidenav";
 })
 export class TicketsListComponent implements OnInit, OnDestroy {
   public constructor(
-    private _fb: FormBuilder,
-    private _store: Store<State>,
-    private _toaster: ToastrService
+    private readonly _fb: FormBuilder,
+    private readonly _store: Store<State>,
+    private readonly _toaster: ToastrService
   ) {}
 
   public _destroyAll$ = new ReplaySubject<unknown>(1);
@@ -37,6 +37,7 @@ export class TicketsListComponent implements OnInit, OnDestroy {
   public drawerMode: "over" | "side" = "side";
 
   public ngOnInit(): void {
+    this.drawerMode = window.screen.width < 769 ? "over" : "side";
     this.initForm();
     this.ticketingForm?.valueChanges
       .pipe(
@@ -59,9 +60,9 @@ export class TicketsListComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(form: ITicket): void {
-    const ticket: ITicket = { ...form, id: Date.now() };
+    const ticket: ITicket = { ...form, id: Date.now(), ticketDate: Date.now() };
     this._store.dispatch(TicketActions.addTicketAction({ ticket }));
-    this._toaster.success("Ticket added successfully 🚀");
+    this._toaster.success("Ticket added successfully 🕘");
     this.onResetForm();
     if (this.drawerMode == "over") this.onToggleSide();
   }
@@ -72,6 +73,7 @@ export class TicketsListComponent implements OnInit, OnDestroy {
 
   public onRemoveTicket(ticket: ITicket): void {
     ticket && this._store.dispatch(TicketActions.deleteTicketAction({ ticket }));
+    this._toaster.info("Ticket removed successfully.");
   }
 
   public onResetForm(): void {
@@ -114,7 +116,6 @@ export class TicketsListComponent implements OnInit, OnDestroy {
         city: [{ value: null, disabled: true }, [Validators.required]],
         district: [{ value: null, disabled: true }, [Validators.required]],
       }),
-      ticketDate: Date.now(),
     });
   }
 
