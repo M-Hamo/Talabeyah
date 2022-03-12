@@ -10,11 +10,11 @@ import * as TicketActions from "./tickets/state/ticketActions";
     <header
       class="h-16 flex justify-start items-center px-4 border-2 border-gray-200 text-gray-700"
     >
-      <button class="gap-2" (click)="onToggleSideBar()">
+      <button class="flex justify-center items-center" (click)="onToggleSideBar()">
         <mat-icon>menu</mat-icon>
       </button>
 
-      <div class="mx-5 text-2xl">Tracking System</div>
+      <div class="sm:mx-5 mx-2 sm:text-2xl text-xl">Tracking System</div>
     </header>
     <tickets-list></tickets-list>
   `,
