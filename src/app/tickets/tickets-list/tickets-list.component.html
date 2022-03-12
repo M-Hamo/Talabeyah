@@ -181,7 +181,7 @@
       <h2
         class="justify-self-center flex justify-center items-center text-xl font-semibold text-gray-600"
       >
-        <mat-icon class="mx-2">view_compact_alt</mat-icon>
+        <mat-icon class="mx-2">dvr</mat-icon>
         Tickets list
       </h2>
       <button
@@ -196,23 +196,13 @@
     </div>
 
     <div
-      class="h-10 grid grid-cols-5 content-center gap-2 border-b-2 mb-2 rounded-t-lg bg-slate-200 border-slate-300"
+      class="h-10 grid sm:grid-cols-5 grid-cols-2 content-center gap-2 border-b-2 mb-2 rounded-t-lg sm:text-lg sm:font-medium font-normal bg-slate-200 border-slate-300"
     >
-      <div class="flex justify-center items-center text-lg font-medium">
-        Ticket Num
-      </div>
-      <div class="flex justify-center items-center text-lg font-medium">
-        Name
-      </div>
-      <div class="flex justify-center items-center text-lg font-medium">
-        Phone
-      </div>
-      <div class="flex justify-center items-center text-lg font-medium">
-        Address
-      </div>
-      <div class="flex justify-center items-center text-lg font-medium">
-        Time
-      </div>
+      <div class="flex justify-center items-center">Ticket Num</div>
+      <div class="sm:flex hidden justify-center items-center">Name</div>
+      <div class="sm:flex hidden justify-center items-center">Phone</div>
+      <div class="sm:flex hidden justify-center items-center">Address</div>
+      <div class="flex justify-center items-center">Time</div>
     </div>
     <ng-container *ngIf="tickets$ | async as tickets">
       <div

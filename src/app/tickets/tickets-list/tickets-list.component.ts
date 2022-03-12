@@ -65,8 +65,13 @@ export class TicketsListComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     const pageWidth: number = event.target.innerWidth;
-    if (pageWidth < 769) this.drawer.close();
-    else this.drawer.open();
+    if (pageWidth < 769) {
+      this.drawerMode = 'over';
+      this.drawer.close();
+    } else {
+      this.drawerMode = 'side';
+      this.drawer.open();
+    }
   }
 
   public onSubmit(form: ITicket): void {
@@ -74,6 +79,7 @@ export class TicketsListComponent implements OnInit, OnDestroy {
     this._store.dispatch(TicketActions.addTicketAction({ ticket }));
     this._toaster.success('Ticket added successfully 🚀');
     this.onResetForm();
+    if (this.toggleSide$) this.onToggleSide();
   }
 
   public onToggleSide(): void {
