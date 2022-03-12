@@ -53,10 +53,10 @@ export class TicketsListComponent implements OnInit, OnDestroy {
     const pageWidth: number = event?.target?.innerWidth;
     if (pageWidth < 769) {
       this.drawerMode = "over";
-      this.drawer.close();
+      // this.drawer.close();
     } else {
       this.drawerMode = "side";
-      this.drawer.open();
+      // this.drawer.open();
     }
   }
 
