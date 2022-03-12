@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,9 +21,10 @@ import {
   stringOnlyEXP,
 } from 'src/app/shared/utils/regExpressions';
 import * as TicketActions from '../state/ticketActions';
-import { IAdress, ITicket } from '../state/ticket.model';
+import { ITicket } from '../state/ticket.model';
 import { fuseAnimations } from 'src/app/shared/utils/animations';
-import { getShowProductCode } from '../state/ticket.reducer';
+import { getShowProductCode, toggleSide } from '../state/ticket.reducer';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'tickets-list',
@@ -29,19 +36,24 @@ export class TicketsListComponent implements OnInit, OnDestroy {
   public constructor(
     private _fb: FormBuilder,
     private _store: Store<State>,
-    private _toastr: ToastrService
+    private _toaster: ToastrService
   ) {}
 
   public _destroyAll$ = new ReplaySubject<unknown>(1);
 
+  @ViewChild('drawer') public drawer: MatSidenav;
+
   public tickets$: Observable<ITicket[]> =
     this._store.select(getShowProductCode);
 
+  public toggleSide$: Observable<boolean> = this._store.select(toggleSide);
+
   public ticketingForm: FormGroup = this._fb.group({});
+
+  public drawerMode: 'over' | 'side' = 'side';
 
   public ngOnInit(): void {
     this.initForm();
-
     this.ticketingForm?.valueChanges
       .pipe(
         takeUntil(this._destroyAll$),
@@ -49,11 +61,23 @@ export class TicketsListComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    const pageWidth: number = event.target.innerWidth;
+    if (pageWidth < 769) this.drawer.close();
+    else this.drawer.open();
+  }
+
   public onSubmit(form: ITicket): void {
     const ticket: ITicket = { ...form, id: Date.now() };
     this._store.dispatch(TicketActions.addTicketAction({ ticket }));
-    this._toastr.success('Ticket added successfully 🚀');
+    this._toaster.success('Ticket added successfully 🚀');
     this.onResetForm();
+  }
+
+  public onToggleSide(): void {
+    this._store.dispatch(TicketActions.toggleSideBar());
   }
 
   public onRemoveTicket(ticket: ITicket): void {

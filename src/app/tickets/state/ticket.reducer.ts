@@ -11,25 +11,36 @@ import { ITicket } from './ticket.model';
 
 export interface TicketsState {
   tickets: ITicket[];
+  toggleSide: boolean;
 }
 
 const initialState: TicketsState = {
   tickets: [],
+  toggleSide: true,
 };
 
-// create selector
+// Feature selector
 const getTicketsFeatureState = createFeatureSelector<TicketsState>('tickets');
 
-// now cat create any selector for any ProductState property
+export const toggleSide = createSelector(
+  getTicketsFeatureState,
+  (state) => state.toggleSide
+);
+
 export const getShowProductCode = createSelector(
   getTicketsFeatureState,
-  // state function is a projector function
   (state) => state.tickets
 );
 
 export const ticketReducer = createReducer<TicketsState>(
   initialState,
 
+  on(TicketsActions.toggleSideBar, (state): TicketsState => {
+    return {
+      ...state,
+      toggleSide: !state.toggleSide,
+    };
+  }),
   on(TicketsActions.addTicketAction, (state, action): TicketsState => {
     return {
       ...state,

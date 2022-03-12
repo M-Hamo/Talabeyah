@@ -23,15 +23,12 @@ export class TicketUiComponent implements OnInit, OnDestroy {
 
   public counter = 180;
 
-  public show = true;
-
   public ngOnInit(): void {
     timer(0, 1000)
       .pipe(
         takeUntil(this._destroyAll$),
         filter(() => this.counter !== -1),
         tap((x: number) => {
-          if (x <= 180 && x >= 120) this.show = !this.show;
           if (x === 180) this.removeTicket.emit(this.ticket);
           else --this.counter;
         })

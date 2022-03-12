@@ -1,225 +1,236 @@
-<div
-  class="w-full min-h-screen flex justify-center items-start sm:px-24 px-4 bg-slate-50"
->
-  <div class="flex-1 grid grid-cols-3 gap-3 mt-24">
-    <!-- form -->
-
-    <div
-      class="sm:col-span-1 col-span-3 flex flex-col justify-start items-stretch"
+<mat-drawer-container class="w-full min-h-screen">
+  <mat-drawer
+    #drawer
+    [@animateStagger]="{ value: '50' }"
+    class="w-full sm:w-4/12 flex justify-start items-start py-10 sm:px-8 px-3 bg-slate-50"
+    [autoFocus]="false"
+    [mode]="drawerMode"
+    [opened]="toggleSide$ | async"
+    position="start"
+  >
+    <h2
+      class="flex justify-start items-center text-xl font-semibold text-gray-600"
     >
-      <h2
-        class="flex justify-start items-center text-xl font-semibold text-gray-600"
-      >
-        Ticket form
-        <mat-icon class="mx-2">post_add</mat-icon>
-      </h2>
-      <form
-        [@animateStagger]="{ value: '50' }"
-        [formGroup]="ticketingForm"
-        class="col-span-1 flex flex-col justify-start items-stretch pr-4 border-r-2 border-slate-300"
-      >
-        <div
-          [@animate]="{ value: '*', params: { y: '150px' } }"
-          class="grid grid-cols-2 gap-2"
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input
-              formControlName="callerName"
-              placeholder="Enter your name plz.."
-              matInput
-            />
-            <mat-error
-              *ngIf="
-                (ticketingForm.get('callerName')?.invalid &&
-                (ticketingForm.get('callerName')?.dirty ||
-                  ticketingForm.get('callerName')?.touched)) &&  !ticketingForm.get('callerName')?.errors?.['pattern']
-              "
-              class="text-md font-semibold"
-            >
-              Required
-            </mat-error>
-            <mat-error
-              *ngIf="
-                (ticketingForm.get('callerName')?.invalid &&
-                (ticketingForm.get('callerName')?.dirty ||
-                  ticketingForm.get('callerName')?.touched)) && ticketingForm.get('callerName')?.errors?.['pattern']
-              "
-              class="text-md font-semibold"
-            >
-              Should br string only
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Caller phone</mat-label>
-            <input
-              formControlName="callerPhone"
-              placeholder="555-555-1234"
-              type="number"
-              matInput
-            />
-            <mat-error
-              *ngIf="
-                ticketingForm.get('callerPhone')?.invalid &&
-                (ticketingForm.get('callerPhone')?.dirty ||
-                  ticketingForm.get('callerPhone')?.touched)
-              "
-              class="text-md font-semibold"
-            >
-              Required
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div
-          formGroupName="address"
-          class="flex flex-col justify-start items-stretch"
-        >
-          <mat-form-field
-            [@animate]="{ value: '*', params: { y: '150px' } }"
-            appearance="outline"
-          >
-            <mat-label>Government</mat-label>
-            <mat-select formControlName="gov">
-              <mat-option value="gov1">gov1</mat-option>
-              <mat-option value="gov2">gov2</mat-option>
-              <mat-option value="gov3">gov3</mat-option>
-            </mat-select>
-
-            <mat-error
-              *ngIf="
-                ticketingForm.get('address')?.get('gov')?.invalid &&
-                (ticketingForm.get('address')?.get('gov')?.dirty ||
-                  ticketingForm.get('address')?.get('gov')?.touched)
-              "
-              class="text-md font-semibold"
-            >
-              Required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field
-            [@animate]="{ value: '*', params: { y: '150px' } }"
-            matTooltip="Choose government first"
-            matTooltipPosition="right"
-            appearance="outline"
-          >
-            <mat-label>City</mat-label>
-            <mat-select formControlName="city">
-              <mat-option value="city1">City1</mat-option>
-              <mat-option value="city2">City2</mat-option>
-              <mat-option value="city3">City3</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="
-                ticketingForm.get('address')?.get('city')?.invalid &&
-                (ticketingForm.get('address')?.get('city')?.dirty ||
-                  ticketingForm.get('address')?.get('city')?.touched)
-              "
-              class="text-md font-semibold"
-            >
-              Required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field
-            [@animate]="{ value: '*', params: { y: '150px' } }"
-            matTooltip="Choose city first"
-            matTooltipPosition="right"
-            appearance="outline"
-          >
-            <mat-label>District</mat-label>
-            <mat-select formControlName="district">
-              <mat-option value="district1">District1</mat-option>
-              <mat-option value="district2">District2</mat-option>
-              <mat-option value="district3">District3</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="
-                ticketingForm.get('address')?.get('district')?.invalid &&
-                (ticketingForm.get('address')?.get('district')?.dirty ||
-                  ticketingForm.get('address')?.get('district')?.touched)
-              "
-              class="text-md font-semibold"
-            >
-              Required
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2">
-          <button
-            [@animate]="{ value: '*', params: { y: '150px' } }"
-            [disabled]="ticketingForm?.invalid"
-            (click)="onSubmit(ticketingForm?.value)"
-            class="col-span-2"
-            mat-flat-button
-            type="submit"
-            color="primary"
-          >
-            <mat-icon class="mx-1">queue</mat-icon>
-            Add Ticket
-          </button>
-          <button
-            [@animate]="{ value: '*', params: { y: '150px' } }"
-            mat-flat-button
-            (click)="onResetForm()"
-            class="col-span-1"
-            type="reset"
-            color="warn"
-          >
-            <mat-icon class="mx-1">cached</mat-icon>
-            Reset
-          </button>
-        </div>
-      </form>
-    </div>
-    <!-- List -->
-    <div
-      class="sm:col-span-2 col-span-3 flex flex-col justify-start items-stretch"
+      <mat-icon class="mx-2">post_add</mat-icon>
+      Ticket form
+    </h2>
+    <form
+      [formGroup]="ticketingForm"
+      class="col-span-1 flex flex-col justify-start items-stretch"
     >
-      <h2
-        class="flex justify-center items-center text-xl font-semibold text-gray-600"
-      >
-        Tickets list
-        <mat-icon class="mx-2">view_compact_alt</mat-icon>
-      </h2>
       <div
-        class="h-10 grid grid-cols-5 content-center gap-2 border-b-2 rounded-t-lg bg-slate-200 border-slate-300"
+        [@animate]="{ value: '*', params: { y: '150px' } }"
+        class="grid grid-cols-2 gap-2"
       >
-        <div class="flex justify-center items-center text-lg font-medium">
-          Ticket Num
-        </div>
-        <div class="flex justify-center items-center text-lg font-medium">
-          Name
-        </div>
-        <div class="flex justify-center items-center text-lg font-medium">
-          Phone
-        </div>
-        <div class="flex justify-center items-center text-lg font-medium">
-          Address
-        </div>
-        <div class="flex justify-center items-center text-lg font-medium">
-          Time
-        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input
+            formControlName="callerName"
+            placeholder="Enter your name plz.."
+            matInput
+          />
+          <mat-error
+            *ngIf="
+            (ticketingForm.get('callerName')?.invalid &&
+            (ticketingForm.get('callerName')?.dirty ||
+              ticketingForm.get('callerName')?.touched)) &&  !ticketingForm.get('callerName')?.errors?.['pattern']
+          "
+            class="text-md font-semibold"
+          >
+            Required
+          </mat-error>
+          <mat-error
+            *ngIf="
+            (ticketingForm.get('callerName')?.invalid &&
+            (ticketingForm.get('callerName')?.dirty ||
+              ticketingForm.get('callerName')?.touched)) && ticketingForm.get('callerName')?.errors?.['pattern']
+          "
+            class="text-md font-semibold"
+          >
+            Should br string only
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Caller phone</mat-label>
+          <input
+            formControlName="callerPhone"
+            placeholder="555-555-1234"
+            type="number"
+            matInput
+          />
+          <mat-error
+            *ngIf="
+              ticketingForm.get('callerPhone')?.invalid &&
+              (ticketingForm.get('callerPhone')?.dirty ||
+                ticketingForm.get('callerPhone')?.touched)
+            "
+            class="text-md font-semibold"
+          >
+            Required
+          </mat-error>
+        </mat-form-field>
       </div>
-      <ng-container *ngIf="tickets$ | async as tickets">
-        <div
-          *ngIf="tickets?.length; else noData"
-          [@animateStagger]="{ value: '50' }"
-          class="flex flex-col justify-start items-stretch gap-1 rounded-md bg-slate-100"
-          style="min-height: 320px"
+
+      <div
+        formGroupName="address"
+        class="flex flex-col justify-start items-stretch"
+      >
+        <mat-form-field
+          [@animate]="{ value: '*', params: { y: '150px' } }"
+          appearance="outline"
         >
-          <ticket
-            [@animate]="{ value: '*', params: { y: '-150px' } }"
-            *ngFor="let ticket of tickets"
-            [ticket]="ticket"
-            (removeTicket)="onRemoveTicket($event)"
-          ></ticket>
-        </div>
-      </ng-container>
+          <mat-label>Government</mat-label>
+          <mat-select formControlName="gov">
+            <mat-option value="gov1">gov1</mat-option>
+            <mat-option value="gov2">gov2</mat-option>
+            <mat-option value="gov3">gov3</mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              ticketingForm.get('address')?.get('gov')?.invalid &&
+              (ticketingForm.get('address')?.get('gov')?.dirty ||
+                ticketingForm.get('address')?.get('gov')?.touched)
+            "
+            class="text-md font-semibold"
+          >
+            Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field
+          [@animate]="{ value: '*', params: { y: '150px' } }"
+          matTooltip="Choose government first"
+          matTooltipPosition="right"
+          appearance="outline"
+        >
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option value="city1">City1</mat-option>
+            <mat-option value="city2">City2</mat-option>
+            <mat-option value="city3">City3</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              ticketingForm.get('address')?.get('city')?.invalid &&
+              (ticketingForm.get('address')?.get('city')?.dirty ||
+                ticketingForm.get('address')?.get('city')?.touched)
+            "
+            class="text-md font-semibold"
+          >
+            Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field
+          [@animate]="{ value: '*', params: { y: '150px' } }"
+          matTooltip="Choose city first"
+          matTooltipPosition="right"
+          appearance="outline"
+        >
+          <mat-label>District</mat-label>
+          <mat-select formControlName="district">
+            <mat-option value="district1">District1</mat-option>
+            <mat-option value="district2">District2</mat-option>
+            <mat-option value="district3">District3</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              ticketingForm.get('address')?.get('district')?.invalid &&
+              (ticketingForm.get('address')?.get('district')?.dirty ||
+                ticketingForm.get('address')?.get('district')?.touched)
+            "
+            class="text-md font-semibold"
+          >
+            Required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+        <button
+          [@animate]="{ value: '*', params: { y: '150px' } }"
+          [disabled]="ticketingForm?.invalid"
+          (click)="onSubmit(ticketingForm?.value)"
+          class="col-span-2"
+          mat-flat-button
+          type="submit"
+          color="primary"
+        >
+          <mat-icon class="mx-1">queue</mat-icon>
+          Add Ticket
+        </button>
+        <button
+          [@animate]="{ value: '*', params: { y: '150px' } }"
+          mat-flat-button
+          (click)="onResetForm()"
+          class="col-span-1"
+          type="reset"
+          color="warn"
+        >
+          <mat-icon class="mx-1">cached</mat-icon>
+          Reset
+        </button>
+      </div>
+    </form>
+  </mat-drawer>
+
+  <mat-drawer-content
+    class="flex flex-col justify-start items-stretch overflow-hidden py-10 sm:px-5 px-3 bg-slate-50"
+  >
+    <div class="flex justify-between items-center">
+      <h2
+        class="justify-self-center flex justify-center items-center text-xl font-semibold text-gray-600"
+      >
+        <mat-icon class="mx-2">view_compact_alt</mat-icon>
+        Tickets list
+      </h2>
+      <button
+        *ngIf="!(toggleSide$ | async)"
+        (click)="onToggleSide()"
+        class="bg-gray-200"
+        mat-flat-button
+      >
+        <mat-icon class="mx-2">view_compact_alt</mat-icon>
+        Add Ticket
+      </button>
     </div>
-  </div>
-</div>
+
+    <div
+      class="h-10 grid grid-cols-5 content-center gap-2 border-b-2 mb-2 rounded-t-lg bg-slate-200 border-slate-300"
+    >
+      <div class="flex justify-center items-center text-lg font-medium">
+        Ticket Num
+      </div>
+      <div class="flex justify-center items-center text-lg font-medium">
+        Name
+      </div>
+      <div class="flex justify-center items-center text-lg font-medium">
+        Phone
+      </div>
+      <div class="flex justify-center items-center text-lg font-medium">
+        Address
+      </div>
+      <div class="flex justify-center items-center text-lg font-medium">
+        Time
+      </div>
+    </div>
+    <ng-container *ngIf="tickets$ | async as tickets">
+      <div
+        *ngIf="tickets?.length; else noData"
+        [@animateStagger]="{ value: '50' }"
+        class="flex flex-col justify-start items-stretch gap-1 rounded-md bg-slate-100"
+        style="min-height: 320px"
+      >
+        <ticket
+          [@animate]="{ value: '*', params: { y: '-150px' } }"
+          *ngFor="let ticket of tickets"
+          [ticket]="ticket"
+          (removeTicket)="onRemoveTicket($event)"
+        ></ticket>
+      </div>
+    </ng-container>
+  </mat-drawer-content>
+</mat-drawer-container>
 
 <ng-template #noData>
   <div
