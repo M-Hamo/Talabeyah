@@ -7,9 +7,7 @@
   }"
 >
   <div class="h-4 grid sm:grid-cols-5 grid-cols-2 content-center">
-    <div
-      class="flex justify-center items-center sm:text-lg sm:font-medium font-normal"
-    >
+    <div class="flex justify-center items-center sm:text-lg sm:font-medium font-normal">
       #{{ ticket?.ticketDate }}
     </div>
     <div
@@ -25,9 +23,7 @@
     <div class="sm:flex hidden justify-center items-center text-ellipsis ...">
       {{ ticket?.address | addressPipe }}
     </div>
-    <div
-      class="flex justify-center items-center sm:text-3xl text-lg font-semibold"
-    >
+    <div class="flex justify-center items-center sm:text-3xl text-lg font-semibold">
       {{ counter | formatTime }}
       <app-notify
         *ngIf="counter <= 60 && counter >= 0"

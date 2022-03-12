@@ -1,13 +1,8 @@
-import {
-  createFeatureSelector,
-  createReducer,
-  createSelector,
-  on,
-} from '@ngrx/store';
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 
-import * as TicketsActions from './ticketActions';
+import * as TicketsActions from "./ticketActions";
 
-import { ITicket } from './ticket.model';
+import { ITicket } from "./ticket.model";
 
 export interface TicketsState {
   tickets: ITicket[];
@@ -20,7 +15,7 @@ const initialState: TicketsState = {
 };
 
 // Feature selector
-const getTicketsFeatureState = createFeatureSelector<TicketsState>('tickets');
+const getTicketsFeatureState = createFeatureSelector<TicketsState>("tickets");
 
 export const toggleSide = createSelector(
   getTicketsFeatureState,

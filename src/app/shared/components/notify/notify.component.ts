@@ -1,12 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-notify',
+  selector: "app-notify",
   template: `
     <div class="flex justify-center items-center gap-2">
-      <mat-icon class="bell " [ngClass]="notifyClass"
-        >notifications_active</mat-icon
-      >
+      <mat-icon class="bell " [ngClass]="notifyClass">notifications_active</mat-icon>
     </div>
   `,
   styles: [

@@ -1,18 +1,11 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { ReplaySubject, timer } from 'rxjs';
-import { filter, takeUntil, tap } from 'rxjs/operators';
-import { ITicket } from '../state/ticket.model';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { ReplaySubject, timer } from "rxjs";
+import { filter, takeUntil, tap } from "rxjs/operators";
+import { ITicket } from "../state/ticket.model";
 
 @Component({
-  selector: 'ticket',
-  templateUrl: './ticket-ui.component.html',
+  selector: "ticket",
+  templateUrl: "./ticket-ui.component.html",
 })
 export class TicketUiComponent implements OnInit, OnDestroy {
   private _destroyAll$ = new ReplaySubject(1);

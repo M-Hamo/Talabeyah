@@ -8,9 +8,7 @@
     [opened]="toggleSide$ | async"
     position="start"
   >
-    <h2
-      class="flex justify-start items-center text-xl font-semibold text-gray-600"
-    >
+    <h2 class="flex justify-start items-center text-xl font-semibold text-gray-600">
       <mat-icon class="mx-2">post_add</mat-icon>
       Ticket form
     </h2>
@@ -72,10 +70,7 @@
         </mat-form-field>
       </div>
 
-      <div
-        formGroupName="address"
-        class="flex flex-col justify-start items-stretch"
-      >
+      <div formGroupName="address" class="flex flex-col justify-start items-stretch">
         <mat-form-field
           [@animate]="{ value: '*', params: { y: '150px' } }"
           appearance="outline"
@@ -232,8 +227,7 @@
         >add_to_queue</mat-icon
       >
     </div>
-    <span
-      class="flex justify-center items-center text-2xl font-semibold text-gray-800"
+    <span class="flex justify-center items-center text-2xl font-semibold text-gray-800"
       >No Tickets to show !</span
     >
     <span

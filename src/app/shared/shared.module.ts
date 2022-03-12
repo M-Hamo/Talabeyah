@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSidenavModule } from "@angular/material/sidenav";
 
-import { NotifyComponent } from './components/notify/notify.component';
+import { NotifyComponent } from "./components/notify/notify.component";
 
 const COMPONENTS = [NotifyComponent];
 
@@ -26,12 +26,7 @@ const UI_COMPONENTS = [
   MatSidenavModule,
 ];
 
-const COMMON_MODULES = [
-  CommonModule,
-  FormsModule,
-  RouterModule,
-  ReactiveFormsModule,
-];
+const COMMON_MODULES = [CommonModule, FormsModule, RouterModule, ReactiveFormsModule];
 
 @NgModule({
   declarations: [...COMPONENTS],

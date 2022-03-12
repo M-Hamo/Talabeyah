@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { State } from './app.state';
+import { Component } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { State } from "./app.state";
 
-import * as TicketActions from './tickets/state/ticketActions';
+import * as TicketActions from "./tickets/state/ticketActions";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <header
       class="h-16 flex justify-start items-center px-4 border-2 border-gray-200 text-gray-700"

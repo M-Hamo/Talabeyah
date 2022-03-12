@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-import { TicketUiComponent } from './ticket-ui/ticket-ui.component';
-import { TicketsListComponent } from './tickets-list/tickets-list.component';
+import { TicketUiComponent } from "./ticket-ui/ticket-ui.component";
+import { TicketsListComponent } from "./tickets-list/tickets-list.component";
 
 const routes: Routes = [];
 
