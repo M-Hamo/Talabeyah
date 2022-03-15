@@ -98,6 +98,8 @@ export class TicketsListComponent implements OnInit, OnDestroy {
 
   public onResetForm(): void {
     this.ticketingForm.reset({});
+    this._store.dispatch(TicketActions.onGovChange({ govName: null }));
+    this._store.dispatch(TicketActions.onCityChange({ cityName: null }));
     if (this.drawerMode === "over") this.onToggleSide();
   }
 
