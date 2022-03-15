@@ -22,26 +22,13 @@
             formControlName="callerName"
             placeholder="Enter your name plz.."
             matInput
+            type="text"
           />
           <mat-error
-            *ngIf="
-            (ticketingForm.get('callerName')?.invalid &&
-            (ticketingForm.get('callerName')?.dirty ||
-              ticketingForm.get('callerName')?.touched)) &&  !ticketingForm.get('callerName')?.errors?.['pattern']
-          "
+            *ngIf="ticketingForm.get('callerName')?.invalid"
             class="text-md font-semibold"
           >
             Required
-          </mat-error>
-          <mat-error
-            *ngIf="
-            (ticketingForm.get('callerName')?.invalid &&
-            (ticketingForm.get('callerName')?.dirty ||
-              ticketingForm.get('callerName')?.touched)) && ticketingForm.get('callerName')?.errors?.['pattern']
-          "
-            class="text-md font-semibold"
-          >
-            Should br string only
           </mat-error>
         </mat-form-field>
 
@@ -52,13 +39,10 @@
             placeholder="555-555-1234"
             type="number"
             matInput
+            [disabled]="true"
           />
           <mat-error
-            *ngIf="
-              ticketingForm.get('callerPhone')?.invalid &&
-              (ticketingForm.get('callerPhone')?.dirty ||
-                ticketingForm.get('callerPhone')?.touched)
-            "
+            *ngIf="ticketingForm.get('callerPhone')?.invalid"
             class="text-md font-semibold"
           >
             Required
@@ -73,17 +57,16 @@
         >
           <mat-label>Government</mat-label>
           <mat-select formControlName="gov">
-            <mat-option value="gov1">gov1</mat-option>
-            <mat-option value="gov2">gov2</mat-option>
-            <mat-option value="gov3">gov3</mat-option>
+            <mat-option
+              *ngFor="let gov of governments$ | async"
+              [value]="gov?.governorate_name"
+              class="text-right"
+              >{{ gov?.governorate_name }}</mat-option
+            >
           </mat-select>
 
           <mat-error
-            *ngIf="
-              ticketingForm.get('address')?.get('gov')?.invalid &&
-              (ticketingForm.get('address')?.get('gov')?.dirty ||
-                ticketingForm.get('address')?.get('gov')?.touched)
-            "
+            *ngIf="ticketingForm.get('address')?.get('gov')?.invalid"
             class="text-md font-semibold"
           >
             Required
@@ -96,17 +79,19 @@
           appearance="outline"
         >
           <mat-label>City</mat-label>
-          <mat-select formControlName="city">
-            <mat-option value="city1">City1</mat-option>
-            <mat-option value="city2">City2</mat-option>
-            <mat-option value="city3">City3</mat-option>
+          <mat-select
+            [disabled]="!((citiesUnderGov$ | async)?.length > 0)"
+            formControlName="city"
+          >
+            <mat-option
+              *ngFor="let city of citiesUnderGov$ | async"
+              [value]="city?.city_name"
+              class="text-right"
+              >{{ city?.city_name }}</mat-option
+            >
           </mat-select>
           <mat-error
-            *ngIf="
-              ticketingForm.get('address')?.get('city')?.invalid &&
-              (ticketingForm.get('address')?.get('city')?.dirty ||
-                ticketingForm.get('address')?.get('city')?.touched)
-            "
+            *ngIf="ticketingForm.get('address')?.get('city')?.invalid"
             class="text-md font-semibold"
           >
             Required
@@ -119,17 +104,16 @@
           appearance="outline"
         >
           <mat-label>District</mat-label>
-          <mat-select formControlName="district">
-            <mat-option value="district1">District1</mat-option>
-            <mat-option value="district2">District2</mat-option>
-            <mat-option value="district3">District3</mat-option>
+          <mat-select
+            [disabled]="!((districtUnderCity$ | async)?.length > 0)"
+            formControlName="district"
+          >
+            <mat-option *ngFor="let dis of districtUnderCity$ | async" [value]="dis">{{
+              dis
+            }}</mat-option>
           </mat-select>
           <mat-error
-            *ngIf="
-              ticketingForm.get('address')?.get('district')?.invalid &&
-              (ticketingForm.get('address')?.get('district')?.dirty ||
-                ticketingForm.get('address')?.get('district')?.touched)
-            "
+            *ngIf="ticketingForm.get('address')?.get('district')?.invalid"
             class="text-md font-semibold"
           >
             Required
@@ -207,6 +191,7 @@
           *ngFor="let ticket of tickets"
           [ticket]="ticket"
           (removeTicket)="onRemoveTicket($event)"
+          class="ease-out"
         ></ticket>
       </div>
     </ng-container>

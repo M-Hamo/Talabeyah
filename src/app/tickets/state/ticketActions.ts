@@ -12,3 +12,13 @@ export const deleteTicketAction = createAction(
   "[Ticket] Delete ticket",
   props<{ ticket: ITicket }>()
 );
+
+export const onGovChange = createAction(
+  "[Address] Government changes",
+  props<{ govName: string }>()
+);
+
+export const onCityChange = createAction(
+  "[Address] Cities changes",
+  props<{ cityName: string }>()
+);

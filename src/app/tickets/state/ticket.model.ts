@@ -1,4 +1,4 @@
-export interface IAdress {
+export interface StoreAddress {
   gov: string;
   city: string;
   district: string;
@@ -7,7 +7,7 @@ export interface IAdress {
 export interface ITicket {
   id: number;
   callerPhone: number;
-  address: IAdress;
+  address: StoreAddress;
   ticketDate: number;
   callerName: string;
 }

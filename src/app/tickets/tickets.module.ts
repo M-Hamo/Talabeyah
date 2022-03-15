@@ -7,8 +7,9 @@ import { AddressPipePipe } from "./utils/address-pipe.pipe";
 import { FormatTimePipe } from "./utils/format-time.pipe";
 import { SharedModule } from "../shared/shared.module";
 
+const PIPES = [AddressPipePipe, FormatTimePipe];
 @NgModule({
-  declarations: [TicketsRoutingModule.Components, AddressPipePipe, FormatTimePipe],
+  declarations: [TicketsRoutingModule.Components, ...PIPES],
   imports: [
     SharedModule,
     TicketsRoutingModule,
